@@ -20,6 +20,6 @@ export class ArticleController {
     }
     @Delete("/:id")
     delete(@Param() params: any): string {
-        return `Delete Article With ID${params.id}`
+        return `Delete Article With ID ${params.id}`
     }
 }
