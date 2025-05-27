@@ -2,10 +2,10 @@ export interface IArticle {
     id: string,
     title: string,
     content: string,
-    status: ArtileStatus
+    status: ArticleStatus
 }
 
-export enum ArtileStatus {
+export enum ArticleStatus {
     SUCCESS = 'SUCCESS',
     PENDING = 'PENDING',
     CANCEL = 'CANCEL',

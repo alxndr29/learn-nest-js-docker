@@ -1,4 +1,4 @@
-import { ArtileStatus } from "../interface/article.interface";
+import { ArticleStatus } from "../interface/article.interface";
 import { IsNotEmpty, IsString, IsEnum } from "class-validator";
 export class createArticleDto {
     @IsNotEmpty()
@@ -10,6 +10,6 @@ export class createArticleDto {
     content: string
 
     @IsNotEmpty()
-    @IsEnum(ArtileStatus)
-    status: ArtileStatus
+    @IsEnum(ArticleStatus)
+    status: ArticleStatus
 }
