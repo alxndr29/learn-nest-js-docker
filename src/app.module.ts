@@ -8,15 +8,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/database.config';
 @Module({
   imports: [ConfigModule.forRoot({
-    isGlobal: true,
-    load: [typeOrmConfig],
+    isGlobal: true
   }),
   TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
     inject: [ConfigService],
-    useFactory: (ConfigService: ConfigService) => ({
-      ...ConfigService.get('database')
-    })
+    useFactory: (configService: ConfigService) => typeOrmConfig(configService)
   }),
     ArticleModule
   ],
