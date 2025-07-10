@@ -18,6 +18,6 @@ import { typeOrmConfig } from './config/database.config';
     ArticleModule
   ],
   controllers: [AppController],
-  providers: [AppService, ArticleService],
+  providers: [AppService],
 })
 export class AppModule { }
