@@ -7,32 +7,33 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class ArticleService {
-    //resourse
-    constructor(
-        @InjectRepository(Article)
-        private ArticleRepository: Repository<Article>
-    ) {
+  //resourse
+  constructor(
+    @InjectRepository(Article)
+    private ArticleRepository: Repository<Article>,
+  ) {}
+  async createArticle(createArticleDto: createArticleDto) {
+    const newArticle = await this.ArticleRepository.save(createArticleDto);
+    return newArticle;
+  }
 
-    }
-    async createArticle(createArticleDto: createArticleDto) {
-        const newArticle = await this.ArticleRepository.save(createArticleDto)
-        return newArticle
-    }
+  async findAllArticle(): Promise<Article[]> {
+    return await this.ArticleRepository.find();
+  }
 
-    async findAllArticle(): Promise<Article[]> {
-        return await this.ArticleRepository.find()
-    }
+  async findOneByParam(id: string): Promise<Article | null> {
+    return await this.ArticleRepository.findOne({ where: { id } });
+  }
 
-    async findOneByParam(id: string): Promise<Article | null> {
-        return await this.ArticleRepository.findOne({ where: { id } })
-    }
+  async updateArticleByParam(
+    article: Article,
+    updateArticleDto: UpdateArticleDto,
+  ): Promise<Article> {
+    Object.assign(article, updateArticleDto);
+    return await this.ArticleRepository.save(article);
+  }
 
-    async updateArticleByParam(article: Article, updateArticleDto: UpdateArticleDto): Promise<Article> {
-        Object.assign(article, updateArticleDto)
-        return await this.ArticleRepository.save(article)
-    }
-
-    async deleteArticleByParam(articleData: Article): Promise<void> {
-       await this.ArticleRepository.delete(articleData.id)
-    }
+  async deleteArticleByParam(articleData: Article): Promise<void> {
+    await this.ArticleRepository.delete(articleData.id);
+  }
 }
