@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { IArticle } from './interface/article.interface';
 import { createArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+
 @Injectable()
 export class ArticleService {
   //resourse
@@ -13,8 +13,7 @@ export class ArticleService {
     private ArticleRepository: Repository<Article>,
   ) {}
   async createArticle(createArticleDto: createArticleDto) {
-    const newArticle = await this.ArticleRepository.save(createArticleDto);
-    return newArticle;
+    return await this.ArticleRepository.save(createArticleDto);
   }
 
   async findAllArticle(): Promise<Article[]> {
