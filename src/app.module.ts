@@ -22,4 +22,4 @@ import { CategoryModule } from './category/category.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
