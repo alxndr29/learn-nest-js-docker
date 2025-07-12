@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { createArticleDto } from './dto/create-article.dto';
-import { IArticle } from './interface/article.interface';
 import { FindOneParams } from './dto/find-one.params';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './entities/article.entity';
