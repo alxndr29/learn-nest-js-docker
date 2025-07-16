@@ -5,7 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nest_dev_app
+      args:
+        NODE_ENV: ${NODE_ENV:-development}
+    container_name: nest_app
     ports:
       - "3000:3000"
     volumes:
@@ -13,11 +15,12 @@ services:
       - /app/node_modules
     env_file:
       - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
     depends_on:
       - mysql
     networks:
       - app-network
-    command: npm run start:dev
 
   mysql:
     image: mysql:8
