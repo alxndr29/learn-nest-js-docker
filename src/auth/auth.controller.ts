@@ -9,11 +9,11 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { AuthGuard } from './guard/auth.guard';
 import { User } from './entities/user.entity';
 import { RolesGuard } from './guard/roles.guard';
 import { Roles } from './decolators/roles.decolator';
 import { Role } from './enum/role.enum';
+import { AuthGuard } from './guard/auth.guard';
 
 @Controller('auth')
 export class AuthController {
