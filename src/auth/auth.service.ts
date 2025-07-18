@@ -61,4 +61,11 @@ export class AuthService {
     const payload = { id: user.id, email: user.email, role: user.role };
     return { access_token: await this.jwtService.signAsync(payload) };
   }
+  async getUser(id: string): Promise<User | null> {
+    const user = await this.userRepository.findOneById({ id });
+    if (user?.password) {
+      user.password = '*************';
+    }
+    return user;
+  }
 }
