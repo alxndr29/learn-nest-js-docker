@@ -1,1 +1,7 @@
 https://www.youtube.com/watch?v=AvrbGBpFh5c&list=PLBAY64k6bSAdX0lib48eI1-wLToZPIojZ&index=30
+npm run migration:generate src/migrations/InitDatabase
+npm run migration:run
+
+nest g module users
+nest g controller users
+nest g service users

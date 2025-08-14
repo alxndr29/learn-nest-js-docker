@@ -8,6 +8,7 @@ import { typeOrmConfig } from './config/database.config';
 import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ProfileModule } from './profile/profile.module';
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true
@@ -20,7 +21,8 @@ import { UsersModule } from './users/users.module';
     ArticleModule,
     CategoryModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    ProfileModule
   ],
   controllers: [AppController],
   providers: [AppService],
