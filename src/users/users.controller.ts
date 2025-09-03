@@ -1,4 +1,12 @@
-import { Body, Controller, Get, NotFoundException, Param, Patch, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../auth/entities/user.entity';
 
@@ -23,9 +31,15 @@ export class UsersController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Patch('/:id')
-  async update(@Param() params: FindOneParams, @Body() updateRoleDto: UpdateRoleDto): Promise<User> {
+  async update(
+    @Param() params: FindOneParams,
+    @Body() updateRoleDto: UpdateRoleDto,
+  ): Promise<{ message: string }> {
     const user = await this.findOneById(params.id);
-    return await this.userService.updateRoleUser(user, updateRoleDto);
+    await this.userService.updateRoleUser(user, updateRoleDto);
+    return {
+      message: "Role berhasil dirubah"
+    };
   }
 
   private async findOneById(id: string): Promise<User | null> {

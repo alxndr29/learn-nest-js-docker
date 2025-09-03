@@ -12,7 +12,15 @@ export class UsersService {
   ) {}
 
   async findAllUser(): Promise<User[]> {
-    return await this.UserRepository.find();
+    return await this.UserRepository.find({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+      },
+      relations:['profile'],
+    });
   }
 
   async findByParams(id: string): Promise<User | null> {
@@ -22,12 +30,14 @@ export class UsersService {
   async updateRoleUser(
     user: User | null,
     updateRoleDto: UpdateRoleDto,
-  ): Promise<User> {
+  ): Promise<{ message:string }> {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
     Object.assign(user, updateRoleDto);
-    return await this.UserRepository.save(user);
+    await this.UserRepository.save(user);
+    return {
+      message: "Update role berhasil"
+    }
   }
 }

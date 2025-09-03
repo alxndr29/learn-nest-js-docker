@@ -1,12 +1,14 @@
 import {
   Column,
   CreateDateColumn,
-  Entity, OneToOne,
+  Entity, OneToMany, OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from '../enum/role.enum';
 import { Profile } from '../../profile/entities/profile.entity';
+import { Exclude, Expose } from 'class-transformer';
+import { Article } from '../../article/entities/article.entity';
 
 @Entity()
 export class User {
@@ -37,4 +39,12 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Expose()
+  get is_active(): boolean {
+    return true;
+  }
+
+  @OneToMany(() => Article, (article) => article.id)
+  article: Article;
 }
