@@ -5,6 +5,7 @@ import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { ArticleQueryDto } from './dto/article-query.dto';
 
 @Injectable()
 export class ArticleService {
@@ -32,8 +33,42 @@ export class ArticleService {
     return this.ArticleRepository.save(newArticle);
   }
 
-  async findAllArticle(): Promise<Article[]> {
-    return await this.ArticleRepository.find();
+  async findAllArticle(query: ArticleQueryDto) {
+    const {
+      title,
+      categoryId,
+      page = 1,
+      limit = 1,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+    } = query;
+
+    const skip = (page - 1) * limit;
+    const qb = this.ArticleRepository.createQueryBuilder('article')
+      .innerJoinAndSelect('article.category','category')
+      .innerJoinAndSelect('article.user','user')
+
+    if(title){
+      qb.andWhere('article.title LIKE :title',{title:`%${title}%`});
+    }
+
+    if(categoryId){
+      qb.andWhere('article.categoryId = :categoryId', { categoryId: categoryId });
+    }
+
+    const [data, total] = await qb.
+      orderBy(`article.${sortBy}`, sortOrder.toUpperCase() as 'ASC' | 'DESC')
+      .skip(skip)
+      .take(limit)
+      .select(['article','category.name','user.name','user.email'])
+      .getManyAndCount()
+
+    return {
+      data,
+      total,
+      page,
+      lastPage: Math.ceil(total/limit),
+    }
   }
 
   async findOneByParam(id: string): Promise<Article | null> {
@@ -50,7 +85,7 @@ export class ArticleService {
           name: true,
           email: true,
           role: true,
-        }
+        },
       },
     });
   }

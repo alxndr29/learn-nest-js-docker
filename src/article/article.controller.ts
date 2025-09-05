@@ -8,7 +8,7 @@ import {
   NotFoundException,
   Param,
   Post,
-  Put,
+  Put, Query,
   Request,
   UploadedFile,
   UseGuards,
@@ -24,14 +24,15 @@ import { RolesGuard } from '../auth/guard/roles.guard';
 import { Role } from '../auth/enum/role.enum';
 import { Roles } from '../auth/decolators/roles.decolator';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ArticleQueryDto } from './dto/article-query.dto';
 
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Get()
-  async findAll(): Promise<Article[]> {
-    return await this.articleService.findAllArticle();
+  async findAll(@Query() query: ArticleQueryDto) {
+    return await this.articleService.findAllArticle(query);
   }
 
   @Get('/:id')
