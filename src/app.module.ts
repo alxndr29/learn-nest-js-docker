@@ -9,6 +9,7 @@ import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ProfileModule } from './profile/profile.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true
@@ -22,7 +23,8 @@ import { ProfileModule } from './profile/profile.module';
     CategoryModule,
     AuthModule,
     UsersModule,
-    ProfileModule
+    ProfileModule,
+    CloudinaryModule
   ],
   controllers: [AppController],
   providers: [AppService],

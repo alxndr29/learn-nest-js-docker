@@ -27,6 +27,11 @@ export class Article {
   })
   status: string;
 
+  @Column({
+    type: 'text',
+  })
+  image:string
+
   @ManyToOne(() => Category, (category) => category.id)
   category: Category;
   @Column({
