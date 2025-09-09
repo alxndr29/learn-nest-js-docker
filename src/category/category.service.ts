@@ -11,16 +11,49 @@ export class CategoryService {
     @InjectRepository(Category)
     private CategoryRepository: Repository<Category>,
   ) {}
+
   async create(createCategoryDto: CreateCategoryDto) {
     return await this.CategoryRepository.save(createCategoryDto);
   }
 
-  async findAll():Promise<Category[]>  {
+  async findAll(): Promise<Category[]> {
     return await this.CategoryRepository.find();
   }
 
   async findOne(id: string): Promise<Category | null> {
-    return await this.CategoryRepository.findOne({ where: { id } });
+    return await this.CategoryRepository.findOne({
+      where: { id },
+      relations: [
+        'articles',
+        'articles.user',
+        'articles.articleTags',
+        'articles.articleTags.tag',
+      ],
+      select: {
+        id: true,
+        name: true,
+        articles: {
+          id: true,
+          title: true,
+          content: true,
+          status: true,
+          image: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            name: true,
+            email: true,
+          },
+          articleTags: {
+            id: true,
+            tag: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    });
   }
 
   async update(

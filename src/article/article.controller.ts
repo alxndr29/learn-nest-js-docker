@@ -8,7 +8,9 @@ import {
   NotFoundException,
   Param,
   Post,
-  Put, Query,
+  Put,
+  Query,
+  Req,
   Request,
   UploadedFile,
   UseGuards,
@@ -33,6 +35,13 @@ export class ArticleController {
   @Get()
   async findAll(@Query() query: ArticleQueryDto) {
     return await this.articleService.findAllArticle(query);
+  }
+
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @Get('/user')
+  async findArticleUser(@Request() req, @Query() query: ArticleQueryDto) {
+    return await this.articleService.articleByUser(req.user.id, query);
   }
 
   @Get('/:id')

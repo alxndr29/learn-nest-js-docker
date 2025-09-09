@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { ArticleStatus } from '../interface/article.interface';
 import { Category } from '../../category/entities/category.entity';
 import { User } from '../../auth/entities/user.entity';
+import { ArticleTag } from '../../articletag/entities/articletag.entity';
+import { Comment } from '../../comment/entities/comment.entity';
 
 @Entity()
 export class Article {
@@ -30,7 +33,7 @@ export class Article {
   @Column({
     type: 'text',
   })
-  image:string
+  image: string;
 
   @ManyToOne(() => Category, (category) => category.id)
   category: Category;
@@ -46,9 +49,17 @@ export class Article {
   })
   userId: string;
 
+  @OneToMany(() => ArticleTag, (articleTag) => articleTag.article)
+  articleTags: ArticleTag[];
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments: Comment[];
+
+
   @CreateDateColumn()
   readonly createdAt: Date;
 
   @UpdateDateColumn()
   readonly updatedAt: Date;
+  cate: any;
 }
