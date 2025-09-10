@@ -1,0 +1,648 @@
+{
+	"info": {
+		"_postman_id": "3945e8b0-4adc-4b97-998a-08249f680282",
+		"name": "Learn Nest JS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26568798"
+	},
+	"item": [
+		{
+			"name": "Article",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}article?page=1&limit=10&categoryId=fed5c07e-f23e-4e87-b6d6-53c8bb4698ed",
+							"host": [
+								"{{url}}article"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "title",
+									"value": "Title A",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "fed5c07e-f23e-4e87-b6d6-53c8bb4698ed"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}article/4eb8e52d-2d70-4a23-b941-6fa08bb348aa",
+							"host": [
+								"{{url}}article"
+							],
+							"path": [
+								"4eb8e52d-2d70-4a23-b941-6fa08bb348aa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Title E",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Content E",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "PENDING",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "92467a8e-cd9a-4883-b1e3-2327f1360a86",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Alx/Downloads/Gado_gado.jpg"
+								},
+								{
+									"key": "tags[]",
+									"value": "vue js",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}article",
+							"host": [
+								"{{url}}article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Title A Edit",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Content A Edit",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "PENDING",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "fed5c07e-f23e-4e87-b6d6-53c8bb4698ed",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}article/afb9fe3b-29e3-4477-bd30-989948c6047f",
+							"host": [
+								"{{url}}article"
+							],
+							"path": [
+								"afb9fe3b-29e3-4477-bd30-989948c6047f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}article/afb9fe3b-29e3-4477-bd30-989948c6047f",
+							"host": [
+								"{{url}}article"
+							],
+							"path": [
+								"afb9fe3b-29e3-4477-bd30-989948c6047f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Article By User Auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}article/user?page=1&limit=10",
+							"host": [
+								"{{url}}article"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}category",
+							"host": [
+								"{{url}}category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}category/92467a8e-cd9a-4883-b1e3-2327f1360a86",
+							"host": [
+								"{{url}}category"
+							],
+							"path": [
+								"92467a8e-cd9a-4883-b1e3-2327f1360a86"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Category B",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}category",
+							"host": [
+								"{{url}}category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Category B",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}category/92467a8e-cd9a-4883-b1e3-2327f1360a86",
+							"host": [
+								"{{url}}category"
+							],
+							"path": [
+								"92467a8e-cd9a-4883-b1e3-2327f1360a86"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}category/5d42ebf7-c766-42af-a99e-b6773996401e",
+							"host": [
+								"{{url}}category"
+							],
+							"path": [
+								"5d42ebf7-c766-42af-a99e-b6773996401e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE ROLE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}users/675141e2-daf4-4807-a1b7-1f502ad9289a",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"675141e2-daf4-4807-a1b7-1f502ad9289a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Update / Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"age\": 10,\r\n    \"bio\": \"lorem ipsum\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}profile",
+							"host": [
+								"{{url}}profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}profile",
+							"host": [
+								"{{url}}profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"email\": \"eadminan@admin.com\",\r\n    \"password\": \"C@non700d\",\r\n    \"role\": \"admin\"\r\n}\r\n// {\r\n//     \"name\": \"user\",\r\n//     \"email\": \"user@user.com\",\r\n//     \"password\": \"C@non700d\",\r\n//     \"role\": \"user\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/register",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eadminan@admin.com\",\r\n    \"password\": \"C@non700d\"\r\n}\r\n// {\r\n//     \"email\": \"user@user.com\",\r\n//     \"password\": \"C@non700d\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/login",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/getuser",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"getuser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3000/"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM4N2IwZmJkLWE5NTMtNDA5My05ZjI0LTI0YzRkMDAzNzgyYyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU2ODcyMjUxLCJleHAiOjE3NTc0NzcwNTF9.RatLCpwGhfiv2w9niglWHD6PzRHhlG1hhtVkReeGaew"
+		}
+	]
+}
