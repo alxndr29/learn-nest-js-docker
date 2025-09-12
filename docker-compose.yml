@@ -18,26 +18,33 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
     depends_on:
-      - mysql
+      postgres:
+        condition: service_healthy
     networks:
       - app-network
 
-  mysql:
-    image: mysql:8
-    container_name: mysql_db
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: blognest
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: ${DB_DATABASE:-blognest}
     ports:
-      - "${DB_PORT}:3306"
+      - "${DB_PORT:-5432}:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_DATABASE:-blognest}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     networks:
       - app-network
 
 volumes:
-  db_data:
+  pg_data:
 
 networks:
   app-network:

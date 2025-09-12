@@ -30,6 +30,9 @@
 ```bash
 $ npm install
 ```
+```bash
+$ npm i -D ts-node-dev ts-node typescript @types/node
+```
 
 ## Compile and run the project
 

@@ -1,6 +1,6 @@
 # Gunakan arg untuk menentukan mode (default: development)
 ARG NODE_ENV=development
-FROM node:20
+FROM node:22
 
 # Simpan NODE_ENV sebagai environment variabel juga
 ARG NODE_ENV
