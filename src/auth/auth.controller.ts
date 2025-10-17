@@ -4,7 +4,9 @@ import {
   Post,
   Get,
   UseGuards,
-  Request, HttpCode, HttpStatus,
+  Request,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
@@ -18,9 +20,13 @@ import { AuthGuard } from './guard/auth.guard';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
-    return await this.authService.registerUser(registerDto);
+    return this.authService.registerUser({
+      ...registerDto,
+      role: Role.USER,
+    });
   }
 
   @HttpCode(HttpStatus.OK)
@@ -28,6 +34,7 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto) {
     return await this.authService.loginUser(loginDto);
   }
+
   @UseGuards(AuthGuard)
   @Get('getuser')
   async getUser(@Request() request): Promise<User | null> {

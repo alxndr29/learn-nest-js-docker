@@ -5,6 +5,7 @@ import {
   MinLength,
   Matches,
   IsEnum,
+  IsOptional,
 } from 'class-validator';
 import { Role } from '../enum/role.enum';
 
@@ -30,6 +31,7 @@ export class RegisterDto {
   })
   password: string;
 
+  @IsOptional()
   @IsEnum(Role)
-  role: Role;
+  role?: Role; // ← tidak wajib
 }
