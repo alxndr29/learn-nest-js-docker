@@ -12,7 +12,7 @@ export class ProfileService {
     private profileRepository: Repository<Profile>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async updateOrCreateProfile(
     userId: string,
@@ -22,16 +22,13 @@ export class ProfileService {
       where: { id: userId },
       relations: ['profile'],
     });
+
     if (!user) {
       throw new NotFoundException(`User with id ${userId} not found`);
     }
-
     if (user.profile) {
       Object.assign(user.profile, createOrUpdateProfileDto);
-      await this.profileRepository.save(user);
-      return {
-        message: `Profile updated successfully.`,
-      };
+      await this.profileRepository.save(user.profile);
     } else {
       const newProfile = this.profileRepository.create(
         createOrUpdateProfileDto,
@@ -42,6 +39,9 @@ export class ProfileService {
         message: `Profile created successfully.`,
       };
     }
+    return {
+      message: `Profile created successfully.`,
+    };
   }
 
   async getUserProfileByToken(userId: string): Promise<User | null> {
