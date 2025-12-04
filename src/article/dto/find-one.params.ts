@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class FindOneParams {
-  @ApiProperty({ description: 'Id Article' })
+  @ApiProperty({ description: 'id' })
   @IsNotEmpty()
   @IsString()
   @IsUUID()

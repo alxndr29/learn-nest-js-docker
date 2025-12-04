@@ -25,14 +25,25 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Requirement
+Node v22
 ## Project setup
 
 ```bash
 $ npm install
 ```
 ```bash
-$ npm i -D ts-node-dev ts-node typescript @types/node
+$ npm install --save-dev typescript@5.9.3
 ```
+
+```bash
+$ npm install -g @nestjs/cli ts-node-dev
+```
+
+```bash
+$ npm install --save @nestjs/swagger swagger-ui-express
+```
+
 
 ## Compile and run the project
 
