@@ -15,21 +15,26 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+
 import { ArticleService } from './article.service';
+
 import { createArticleDto } from './dto/create-article.dto';
 import { FindOneParams } from './dto/find-one.params';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { ArticleQueryDto } from './dto/article-query.dto';
+
 import { Article } from './entities/article.entity';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { Role } from '../auth/enum/role.enum';
 import { Roles } from '../auth/decolators/roles.decolator';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ArticleQueryDto } from './dto/article-query.dto';
+
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 
 @Controller('article')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) { }
 
   @Get()
   async findAll(@Query() query: ArticleQueryDto) {
@@ -51,6 +56,11 @@ export class ArticleController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Post()
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    type: createArticleDto
+  })
   @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() createArticleDto: createArticleDto,
@@ -67,6 +77,12 @@ export class ArticleController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Put('/:id')
+  @Post()
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    type: UpdateArticleDto
+  })
   @UseInterceptors(FileInterceptor('image'))
   async update(
     @Request() req,

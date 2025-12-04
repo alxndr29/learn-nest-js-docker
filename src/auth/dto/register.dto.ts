@@ -8,16 +8,20 @@ import {
   IsOptional,
 } from 'class-validator';
 import { Role } from '../enum/role.enum';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class RegisterDto {
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty()
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @ApiProperty()
   @MinLength(8)
   @IsNotEmpty()
   @Matches(/[A-Z]/, {
