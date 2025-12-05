@@ -19,7 +19,7 @@ export class ArticleService {
     @InjectRepository(ArticleTag)
     private ArticleTagRepository: Repository<ArticleTag>,
     private CloudinaryService: CloudinaryService,
-  ) {}
+  ) { }
 
   async articleByUser(userId: string, query: ArticleQueryDto) {
     const {
@@ -30,29 +30,41 @@ export class ArticleService {
       sortOrder = 'desc',
     } = query;
 
-    const skip = (page - 1) * limit;
-    const qb = this.ArticleRepository.createQueryBuilder(
-      'article',
-    ).innerJoinAndSelect('article.category', 'category');
+    // normalize & guard
+    const pageNum = Math.max(1, Number(page) || 1);
+    const perPage = Math.max(1, Number(limit) || 10);
+    const skip = (pageNum - 1) * perPage;
+
+    // whitelist kolom yang boleh di-sort untuk menghindari SQL injection
+    const allowedSortColumns = ['createdAt', 'updatedAt', 'title', 'id'];
+    const sortColumn = allowedSortColumns.includes(sortBy) ? sortBy : 'createdAt';
+    const order: 'ASC' | 'DESC' =
+      String(sortOrder).toLowerCase() === 'asc' ? 'ASC' : 'DESC';
+
+    const qb = this.ArticleRepository.createQueryBuilder('article')
+      .innerJoinAndSelect('article.category', 'category')
+      // mulai dengan where userId supaya kita tidak menimpa kondisi lain
+      .where('article.userId = :userId', { userId });
 
     if (title) {
       qb.andWhere('article.title LIKE :title', { title: `%${title}%` });
     }
 
     const [data, total] = await qb
-      .orderBy(`article.${sortBy}`, sortOrder.toUpperCase() as 'ASC' | 'DESC')
-      .skip(skip)
-      .take(limit)
-      .where({ userId })
       .select(['article', 'category.name'])
+      .orderBy(`article.${sortColumn}`, order)
+      .skip(skip)
+      .take(perPage)
       .getManyAndCount();
+
     return {
       data,
       total,
-      page,
-      lastPage: Math.ceil(total / page),
+      page: pageNum,
+      lastPage: total === 0 ? 0 : Math.ceil(total / perPage),
     };
   }
+
 
   async createArticle(
     userId: string,
