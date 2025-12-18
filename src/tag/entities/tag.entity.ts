@@ -9,6 +9,6 @@ export class Tag {
   @Column({ unique: true })
   name: string;
 
-  @OneToMany(() => ArticleTag, (articleTag) => articleTag.tag)
+  @OneToMany(() => ArticleTag, (articleTag) => articleTag.tag, {cascade: true, onDelete: 'CASCADE'})
   articleTags: ArticleTag[];
 }
